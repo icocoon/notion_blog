@@ -220,3 +220,7 @@
   visibility: hidden;
 }
 
+/* 当 .social 区域没有任何图标时，彻底隐藏它 */
+.footer .social:empty {
+  display: none;
+}
