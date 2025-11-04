@@ -79,7 +79,7 @@ export function NotionPageHeader({
             })
             .filter(Boolean)}
 
-          <ToggleThemeButton />
+          {/* <ToggleThemeButton /> */}
 
           {isSearchEnabled && <Search block={block} title={null} />}
         </div>

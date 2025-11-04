@@ -39,7 +39,7 @@ export function FooterImpl() {
         Copyright {currentYear} {config.author}
       </div>
 
-      <div className={styles.settings}>
+      {/* <div className={styles.settings}>
         {hasMounted && (
           <a
             className={styles.toggleDarkMode}
@@ -51,7 +51,7 @@ export function FooterImpl() {
             {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
           </a>
         )}
-      </div>
+      </div> */}
 
       <div className={styles.social}>
         {config.twitter && (
