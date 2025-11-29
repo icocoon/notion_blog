@@ -9,7 +9,7 @@ export default class MyDocument extends Document {
           <Head>
             <link 
               rel="stylesheet" 
-              href="https://npm.elemecdn.com/lxgw-wenkai-screen-web/style.css" 
+              href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" 
               media="print" 
               onLoad={(e) => {
                 e.currentTarget.media = 'all';
