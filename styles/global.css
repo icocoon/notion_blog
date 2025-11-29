@@ -61,11 +61,17 @@ body {
     background-color: var(--bg-color);
 }
 
-/* 引入霞鹜文楷字体设置 */
-:root {
-  --font-sans: "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+
+/* 引入霞鹜文楷字体设置 (强制覆盖 Notion 变量) */
+:root, body, .notion, .notion-app {
+  --notion-font: "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  
+  /* 同时也强制设置 font-family，双重保险 */
+  font-family: var(--notion-font) !important;
 }
 
-body, .notion {
-  font-family: "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !important;
+/* 针对部分 Notion 标题或特殊块可能单独定义了字体，再次强制覆盖 */
+.notion-h1, .notion-h2, .notion-h3, .notion-text, .notion-code, .notion-quote {
+  font-family: var(--notion-font) !important;
 }
