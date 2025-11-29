@@ -33,13 +33,18 @@
 
 
 import * as React from 'react'
+import dynamic from 'next/dynamic' // <--- 1. 引入 dynamic
 import { type Block, type ExtendedRecordMap } from 'notion-types'
 import { getPageTweet } from '@/lib/get-page-tweet'
 import { PageActions } from './PageActions'
 import { PageSocial } from './PageSocial'
 
-// 1. 引入目录组件 (从 react-notion-x 第三方库中引入)
-import { TableOfContents } from 'react-notion-x/third-party/table-of-contents'
+// 2. 使用动态导入 (Dynamic Import) 引入目录组件
+// { ssr: false } 表示仅在客户端渲染，这对于目录这种依赖浏览器窗口滚动的组件非常重要
+const TableOfContents = dynamic(() =>
+  import('react-notion-x/third-party/table-of-contents').then((m) => m.TableOfContents),
+  { ssr: false }
+)
 
 export function PageAside({
   block,
@@ -58,10 +63,7 @@ export function PageAside({
   if (isBlogPost) {
     const tweet = getPageTweet(block, recordMap)
     
-    // 2. 重新组织结构：
-    // 不管有没有推特，都要显示容器。
-    // 如果有推特，显示 Action 按钮；
-    // 始终显示 TableOfContents (目录)
+    // 3. 渲染逻辑：始终显示容器，按需显示推特按钮，始终显示目录
     return (
       <div className='notion-aside-custom'>
         {tweet && <PageActions tweet={tweet} />}
