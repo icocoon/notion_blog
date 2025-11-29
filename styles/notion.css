@@ -404,27 +404,3 @@
   align-items: center;
 }
 
-/* --- 霞鹜文楷字体配置 (添加在 styles/notion.css 末尾) --- */
-
-/* 1. 定义字体变量 */
-:root {
-  --lxgw-font: "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-}
-
-/* 2. 覆盖 Notion 的核心字体变量 */
-:root, html, body, .notion, .notion-app {
-  --notion-font: var(--lxgw-font) !important;
-  font-family: var(--lxgw-font) !important;
-}
-
-/* 3. 针对性覆盖：防止某些 Notion 组件（如标题）有独立的样式定义 */
-.notion-h1, .notion-h2, .notion-h3, 
-.notion-text, .notion-quote, .notion-list-item,
-.notion-table-cell, .notion-callout-text {
-  font-family: var(--lxgw-font) !important;
-}
-
-/* 4. 排除代码块：保持代码块使用等宽字体，不要变成文楷 */
-.notion-code, .notion-inline-code, code, pre {
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
-}
