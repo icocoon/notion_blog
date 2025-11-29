@@ -544,3 +544,30 @@
     text-align: left; 
   }
 }
+
+/* =========================================
+   移动端表格适配修复 (Mobile Table Fix)
+   ========================================= */
+
+/* 1. 强制表格变成块级容器，允许滚动 */
+.notion-simple-table {
+  display: block; 
+  width: 100%;              /* 宽度限制为屏幕宽度的 100% */
+  overflow-x: auto;         /* 超出部分显示横向滚动条 */
+  -webkit-overflow-scrolling: touch; /* 让 iOS 滚动更丝滑 */
+  margin-bottom: 1em;       /* 保持下方间距 */
+}
+
+/* 2. 避免单元格在手机上被挤得太扁，导致文字竖排 */
+.notion-simple-table td, 
+.notion-simple-table th {
+  min-width: 120px; /* 给每个格子一个最小宽度，保证阅读舒适 */
+  white-space: normal; /* 允许文字正常换行 */
+}
+
+/* 3. 针对 Notion 数据库表格视图的修复 (如果有用到) */
+.notion-collection-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
