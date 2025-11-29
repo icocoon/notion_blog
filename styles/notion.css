@@ -443,17 +443,32 @@
 
 /* --- 3. 图片美化 (精致感来源) --- */
 
-.notion-asset-wrapper img {
-  border-radius: 12px; /* 图片圆角 */
-  /* 给图片加一个柔和的阴影，让它像浮在纸面上 */
+/* --- 修复图片圆角与灰色漏角问题 --- */
+
+/* 1. 针对图片容器进行圆角处理，并隐藏溢出，彻底消灭灰色小角 */
+.notion-asset-wrapper {
+  border-radius: 12px; /* 容器也圆角 */
+  overflow: hidden;    /* 裁切掉漏出来的灰色背景 */
+  /* 加阴影在容器上，而不是图片上，这样不会被 overflow 裁掉 */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 鼠标悬停时，图片微微上浮 (增加互动感) */
-.notion-asset-wrapper img:hover {
+/* 2. 图片本身只需要填满容器 */
+.notion-asset-wrapper img {
+  border-radius: 0 !important; /* 图片不需要圆角了，由容器裁切 */
+  display: block;
+}
+
+/* 3. 鼠标悬停动画（作用于容器） */
+.notion-asset-wrapper:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* 4. 针对浮动图片的特殊优化 (如果你的浮动是指 Notion 的左右布局) */
+.notion-column .notion-asset-wrapper {
+  margin: 0 auto; /* 确保在分栏中居中 */
 }
 
 /* --- 4. 引用块 (Quote) 优化 --- */
