@@ -7,6 +7,7 @@ export default class MyDocument extends Document {
       <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
         <Html lang='en'>
           <Head>
+            <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-web/style.css" media="print" onLoad="this.media='all'" />
             <link rel='shortcut icon' href='/favicon.ico' />
             <link
               rel='icon'
