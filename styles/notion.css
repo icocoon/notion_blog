@@ -404,3 +404,85 @@
   align-items: center;
 }
 
+/* =========================================
+   Notion 博客视觉优化整合包 (Visual Polish)
+   ========================================= */
+
+/* --- 1. 文字排版优化 (增加呼吸感) --- */
+
+/* 正文：增加行高和段落间距，阅读不累 */
+.notion-text {
+  line-height: 1.8;
+  margin-bottom: 0.8em;
+  font-size: 1.05rem; /* 稍微加大一点点字号 */
+  letter-spacing: 0.01em; /* 极微小的字间距，让汉字更舒展 */
+}
+
+/* 列表：增加列表项之间的距离 */
+.notion-list-item {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* --- 2. 标题层级优化 --- */
+
+/* 所有标题：增加上方留白，区分段落 */
+.notion-h1, .notion-h2, .notion-h3 {
+  margin-top: 2em !important;
+  margin-bottom: 0.5em !important;
+  line-height: 1.4;
+}
+
+/* H2 二级标题：增加底部线条，明确章节划分 */
+.notion-h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--fg-color-1); /* 使用主题自带的淡色变量 */
+  opacity: 0.9;
+}
+
+/* --- 3. 图片美化 (精致感来源) --- */
+
+.notion-asset-wrapper img {
+  border-radius: 12px; /* 图片圆角 */
+  /* 给图片加一个柔和的阴影，让它像浮在纸面上 */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 鼠标悬停时，图片微微上浮 (增加互动感) */
+.notion-asset-wrapper img:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 4. 引用块 (Quote) 优化 --- */
+
+.notion-quote {
+  border-left: 4px solid var(--fg-color-icon); /* 左侧竖线 */
+  background: var(--bg-color-1); /* 浅浅的背景色 */
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0; /* 右侧圆角 */
+  margin: 1.5em 0;
+  font-style: italic; /* 斜体增加引用感 */
+}
+
+/* --- 5. 代码块优化 --- */
+
+.notion-code {
+  border-radius: 10px; /* 代码块圆角 */
+  /* 加一个极细的边框，防止在某些屏幕下背景色太淡看不清边界 */
+  border: 1px solid var(--fg-color-0); 
+  font-size: 0.9em;
+}
+
+/* --- 6. 移动端微调 --- */
+@media (max-width: 640px) {
+  .notion-text {
+    font-size: 1rem; /* 手机上字号回归标准 */
+    line-height: 1.7;
+  }
+  .notion-asset-wrapper img {
+    box-shadow: none; /* 手机屏幕小，去掉阴影更清爽 */
+  }
+}
