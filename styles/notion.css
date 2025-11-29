@@ -571,3 +571,30 @@
   width: 100%;
   overflow-x: auto;
 }
+
+/* =========================================
+   标题排版修复 (Title Balancing)
+   ========================================= */
+
+/* 针对页面大标题 (H1) */
+.notion-title, 
+.notion-h1 {
+  /* 核心魔法：自动平衡换行，避免孤字 */
+  text-wrap: balance;  
+  
+  /* 辅助：确保单词内不强行断行（针对英文长词） */
+  word-wrap: break-word;
+}
+
+/* 针对移动端的特殊微调 */
+@media (max-width: 640px) {
+  .notion-title, 
+  .notion-h1 {
+    /* 稍微减小一点点手机上的标题字号，增加一行能容纳的字数 */
+    font-size: 2.2rem !important; 
+    
+    /* 减少标题左右的内边距，让文字有更多空间伸展，减少换行概率 */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
