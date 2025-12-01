@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
 // used for code syntax highlighting (optional)
@@ -13,10 +14,6 @@ import 'styles/notion.css'
 // global style overrides for prism theme (optional)
 import 'styles/prism-theme.css'
 
-// ------------------------------------------------------------------
-// 注意：下面这一块是功能库引用，必须和上面的 CSS 样式空一行
-// 并且必须按照字母顺序排列，否则构建会报错
-// ------------------------------------------------------------------
 import { Analytics } from '@vercel/analytics/react'
 import * as Fathom from 'fathom-client'
 import type { AppProps } from 'next/app'
