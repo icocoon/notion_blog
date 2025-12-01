@@ -20,6 +20,9 @@ importers:
       '@react-icons/all-files':
         specifier: ^4.1.0
         version: 4.1.0(react@19.1.1)
+      '@types/nprogress':
+        specifier: ^0.2.3
+        version: 0.2.3
       '@vercel/analytics':
         specifier: ^1.6.0
         version: 1.6.0(next@15.5.3(@babel/core@7.28.5)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(nuxt@4.2.1(@parcel/watcher@2.5.1)(@types/node@24.5.2)(@vue/compiler-sfc@3.5.25)(db0@0.3.4)(eslint@9.35.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.5.1)(optionator@0.9.4)(rollup@4.53.3)(terser@5.44.1)(typescript@5.9.2)(vite@7.2.6(@types/node@24.5.2)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))(yaml@2.8.2))(react@19.1.1)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.2)))(vue@3.5.25(typescript@5.9.2))
@@ -50,6 +53,9 @@ importers:
       notion-utils:
         specifier: ^7.7.0
         version: 7.7.0
+      nprogress:
+        specifier: ^0.2.0
+        version: 0.2.0
       p-map:
         specifier: ^7.0.3
         version: 7.0.3
@@ -1602,6 +1608,9 @@ packages:
 
   '@types/node@24.5.2':
     resolution: {integrity: sha512-FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==}
+
+  '@types/nprogress@0.2.3':
+    resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==}
 
   '@types/parse-path@7.1.0':
     resolution: {integrity: sha512-EULJ8LApcVEPbrfND0cRQqutIOdiIgJ1Mgrhpy755r14xMohPTEpkV/k28SJvuOs9bHRFW8x+KeDAEPiGQPB9Q==}
@@ -3719,6 +3728,9 @@ packages:
   npm-run-path@6.0.0:
     resolution: {integrity: sha512-9qny7Z9DsQU8Ou39ERsPU4OZQlSTP47ShQzuKZ6PRXpYLtIFgl/DEBYEXKlvcEa+9tHVcK8CF81Y2V72qaZhWA==}
     engines: {node: '>=18'}
+
+  nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
@@ -6688,6 +6700,8 @@ snapshots:
     dependencies:
       undici-types: 7.12.0
 
+  '@types/nprogress@0.2.3': {}
+
   '@types/parse-path@7.1.0':
     dependencies:
       parse-path: 7.1.0
@@ -9101,6 +9115,8 @@ snapshots:
     dependencies:
       path-key: 4.0.0
       unicorn-magic: 0.3.0
+
+  nprogress@0.2.0: {}
 
   nth-check@2.1.1:
     dependencies:

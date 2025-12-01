@@ -14,12 +14,16 @@ import 'styles/notion.css'
 // global style overrides for prism theme (optional)
 import 'styles/prism-theme.css'
 
+// 引入 NProgress 样式 (进度条样式)
+import 'nprogress/nprogress.css'
+
 import { Analytics } from '@vercel/analytics/react'
 import * as Fathom from 'fathom-client'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { posthog } from 'posthog-js'
 import * as React from 'react'
+import NProgress from 'nprogress'
 
 import { bootstrap } from '@/lib/bootstrap-client'
 import {
@@ -38,7 +42,15 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   React.useEffect(() => {
+    // 页面开始跳转：进度条开始
+    function onRouteChangeStart() {
+      NProgress.start()
+    }
+
+    // 页面跳转完成：进度条结束 + 发送统计数据
     function onRouteChangeComplete() {
+      NProgress.done()
+      
       if (fathomId) {
         Fathom.trackPageview()
       }
@@ -46,6 +58,11 @@ export default function App({ Component, pageProps }: AppProps) {
       if (posthogId) {
         posthog.capture('$pageview')
       }
+    }
+
+    // 页面跳转出错：进度条也得结束
+    function onRouteChangeError() {
+      NProgress.done()
     }
 
     if (fathomId) {
@@ -56,10 +73,16 @@ export default function App({ Component, pageProps }: AppProps) {
       posthog.init(posthogId, posthogConfig)
     }
 
+    // 绑定事件监听
+    router.events.on('routeChangeStart', onRouteChangeStart)
     router.events.on('routeChangeComplete', onRouteChangeComplete)
+    router.events.on('routeChangeError', onRouteChangeError)
 
+    // 清理事件监听
     return () => {
+      router.events.off('routeChangeStart', onRouteChangeStart)
       router.events.off('routeChangeComplete', onRouteChangeComplete)
+      router.events.off('routeChangeError', onRouteChangeError)
     }
   }, [router.events])
 
