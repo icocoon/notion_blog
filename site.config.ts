@@ -11,7 +11,7 @@ export default siteConfig({
   // basic site info (required)
   name: 'inbloom',
   domain: 'inbloom.com.cn',
-  author: '河清 | 联系邮箱(Email): h.h.q@outlook.com',
+  author: '河清',
 
   // open graph metadata (optional)
   description: '循此苦旅，以觅繁星',
