@@ -50,11 +50,14 @@ export function getCanonicalPageId(
   if (override) {
     return override
   } else {
-    // 恢复调用官方的 URL 生成逻辑，确保 ID 完整性与标题格式化
-    return (
-      getCanonicalPageIdImpl(pageId, recordMap, {
-        uuid
-      }) ?? undefined
-    )
+    // 增加容错机制：拦截原生方法的崩溃
+    try {
+      const canonicalId = getCanonicalPageIdImpl(pageId, recordMap, { uuid })
+      return canonicalId ?? cleanPageId
+    } catch (error) {
+      // 当遇到空标题或解析异常时，放弃拼接标题，直接回退使用 32 位原始 ID
+      console.warn(`[Warning] Failed to generate canonical URL for page ${cleanPageId}, fallback to raw ID.`)
+      return cleanPageId
+    }
   }
 }
