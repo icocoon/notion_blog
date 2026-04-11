@@ -49,7 +49,7 @@ export function getCanonicalPageId(
   if (override) {
     return override
   } else {
-    return cleanPageId.slice(0, 16)
+    return cleanPageId.slice(0, 32)
   }
 }
 
