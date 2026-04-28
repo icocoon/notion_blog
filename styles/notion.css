@@ -604,15 +604,20 @@
    ========================================= */
 
 /* 文章页面：添加极淡的 inbloom 字母水印 */
-/* 加在 .notion-app 上，覆盖其默认的 background: var(--bg-color) */
+/* 优化要点：
+   - 单元尺寸放大到 420x320，减少重复密度，全页仅隐约可见数个
+   - 字号加大到 24，保持远距离可辨识但不抢眼
+   - 透明度降至 0.06，融入背景更自然
+   - 旋转角度微调为 -20°，更具动感
+*/
 .notion-app {
   background-color: var(--bg-color);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ctext x='50%25' y='50%25' font-family='Georgia, serif' font-size='18' fill='%23999' fill-opacity='0.08' text-anchor='middle' dominant-baseline='middle' transform='rotate(-15, 150, 100)'%3Einbloom%3C/text%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='420' height='320' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' font-family='Georgia, serif' font-size='24' fill='%23aaa' fill-opacity='0.06' text-anchor='middle' dominant-baseline='central' transform='rotate(-20, 210, 160)'%3Einbloom%3C/text%3E%3C/svg%3E");
   background-repeat: repeat;
   background-attachment: fixed;
 }
 
-/* 首页不需要水印：.index-page 是加在 .notion-page 上的 class */
+/* 首页不需要水印 */
 .notion-app:has(.index-page) {
   background-image: none;
 }
@@ -620,7 +625,7 @@
 /* 暗色模式下水印更淡 */
 .dark-mode .notion-app {
   background-color: var(--bg-color);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ctext x='50%25' y='50%25' font-family='Georgia, serif' font-size='18' fill='%23fff' fill-opacity='0.04' text-anchor='middle' dominant-baseline='middle' transform='rotate(-15, 150, 100)'%3Einbloom%3C/text%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='420' height='320' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' font-family='Georgia, serif' font-size='24' fill='%23ddd' fill-opacity='0.035' text-anchor='middle' dominant-baseline='central' transform='rotate(-20, 210, 160)'%3Einbloom%3C/text%3E%3C/svg%3E");
 }
 
 .dark-mode .notion-app:has(.index-page) {
