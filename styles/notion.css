@@ -598,3 +598,31 @@
     padding-right: 0 !important;
   }
 }
+
+/* =========================================
+   字母水印背景纹理 (Watermark Background)
+   ========================================= */
+
+/* 文章页面：添加极淡的 inbloom 字母水印 */
+/* 加在 .notion-app 上，覆盖其默认的 background: var(--bg-color) */
+.notion-app {
+  background-color: var(--bg-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ctext x='50%25' y='50%25' font-family='Georgia, serif' font-size='18' fill='%23999' fill-opacity='0.08' text-anchor='middle' dominant-baseline='middle' transform='rotate(-15, 150, 100)'%3Einbloom%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+/* 首页不需要水印：.index-page 是加在 .notion-page 上的 class */
+.notion-app:has(.index-page) {
+  background-image: none;
+}
+
+/* 暗色模式下水印更淡 */
+.dark-mode .notion-app {
+  background-color: var(--bg-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ctext x='50%25' y='50%25' font-family='Georgia, serif' font-size='18' fill='%23fff' fill-opacity='0.04' text-anchor='middle' dominant-baseline='middle' transform='rotate(-15, 150, 100)'%3Einbloom%3C/text%3E%3C/svg%3E");
+}
+
+.dark-mode .notion-app:has(.index-page) {
+  background-image: none;
+}
