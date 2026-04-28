@@ -58,7 +58,11 @@ function flattenRecordMap(recordMap: ExtendedRecordMap): ExtendedRecordMap {
       // Preserve spaceId if it exists at the top level
       const { spaceId, value: outerValue } = block
       const innerValue = outerValue.value
-      recordMap.block[id] = spaceId ? { spaceId, value: innerValue } : { value: innerValue }
+      // Use `as any` because the strict type { role: Role; value: Block } doesn't
+      // include spaceId, but the actual Notion API response does contain it on some blocks.
+      recordMap.block[id] = spaceId
+        ? ({ spaceId, value: innerValue } as any)
+        : { value: innerValue }
     }
   }
   return recordMap

@@ -26,7 +26,9 @@ function flattenRecordMap(recordMap: any): any {
     if (block?.value?.value && typeof block.value.value === 'object') {
       const { spaceId, value: outerValue } = block
       const innerValue = outerValue.value
-      recordMap.block[id] = spaceId ? { spaceId, value: innerValue } : { value: innerValue }
+      recordMap.block[id] = spaceId
+        ? ({ spaceId, value: innerValue } as any)
+        : { value: innerValue }
     }
   }
   return recordMap
