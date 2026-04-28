@@ -9,6 +9,22 @@ import { notion } from './notion-api'
 
 const uuid = !!includeNotionIdInUrls
 
+/**
+ * Fix double-nested block values returned by notion-client v7.7.0.
+ * See notion.ts flattenRecordMap for details.
+ */
+function flattenRecordMap(recordMap: any): any {
+  for (const id of Object.keys(recordMap.block)) {
+    const block = recordMap.block[id]
+    if (block?.value?.value && typeof block.value.value === 'object') {
+      const { spaceId, value: outerValue } = block
+      const innerValue = outerValue.value
+      recordMap.block[id] = spaceId ? { spaceId, value: innerValue } : { value: innerValue }
+    }
+  }
+  return recordMap
+}
+
 export async function getSiteMap(): Promise<types.SiteMap> {
   const partialSiteMap = await getAllPages(
     config.rootNotionPageId,
@@ -27,12 +43,13 @@ const getAllPages = pMemoize(getAllPagesImpl, {
 
 const getPage = async (pageId: string, opts?: any) => {
   console.log('\nnotion getPage', uuidToId(pageId))
-  return notion.getPage(pageId, {
+  const recordMap = await notion.getPage(pageId, {
     kyOptions: {
       timeout: 30_000
     },
     ...opts
   })
+  return flattenRecordMap(recordMap)
 }
 
 async function getAllPagesImpl(

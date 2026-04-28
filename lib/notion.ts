@@ -25,13 +25,15 @@ const getNavigationLinkPages = pMemoize(
     if (navigationStyle !== 'default' && navigationLinkPageIds.length) {
       return pMap(
         navigationLinkPageIds,
-        async (navigationLinkPageId) =>
-          notion.getPage(navigationLinkPageId, {
+        async (navigationLinkPageId) => {
+          const navRecordMap = await notion.getPage(navigationLinkPageId, {
             chunkLimit: 1,
             fetchMissingBlocks: false,
             fetchCollections: false,
             signFileUrls: false
-          }),
+          })
+          return flattenRecordMap(navRecordMap)
+        },
         {
           concurrency: 4
         }
@@ -42,8 +44,29 @@ const getNavigationLinkPages = pMemoize(
   }
 )
 
+/**
+ * Fix double-nested block values returned by notion-client v7.7.0.
+ * In this version, block data is at block[id].value.value instead of
+ * block[id].value, which breaks downstream consumers like getAllPagesInSpace.
+ * This function flattens the nesting so block[id].value points to the actual
+ * block value object.
+ */
+function flattenRecordMap(recordMap: ExtendedRecordMap): ExtendedRecordMap {
+  for (const id of Object.keys(recordMap.block)) {
+    const block = recordMap.block[id] as any
+    if (block?.value?.value && typeof block.value.value === 'object') {
+      // Preserve spaceId if it exists at the top level
+      const { spaceId, value: outerValue } = block
+      const innerValue = outerValue.value
+      recordMap.block[id] = spaceId ? { spaceId, value: innerValue } : { value: innerValue }
+    }
+  }
+  return recordMap
+}
+
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   let recordMap = await notion.getPage(pageId)
+  recordMap = flattenRecordMap(recordMap)
 
   if (navigationStyle !== 'default') {
     // ensure that any pages linked to in the custom navigation header have

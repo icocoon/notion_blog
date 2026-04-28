@@ -16,6 +16,22 @@ import { mapImageUrl } from '@/lib/map-image-url'
 import { notion } from '@/lib/notion-api'
 import { type NotionPageInfo, type PageError } from '@/lib/types'
 
+/**
+ * Fix double-nested block values returned by notion-client v7.7.0.
+ * See notion.ts flattenRecordMap for details.
+ */
+function flattenRecordMap(recordMap: any): any {
+  for (const id of Object.keys(recordMap.block)) {
+    const block = recordMap.block[id]
+    if (block?.value?.value && typeof block.value.value === 'object') {
+      const { spaceId, value: outerValue } = block
+      const innerValue = outerValue.value
+      recordMap.block[id] = spaceId ? { spaceId, value: innerValue } : { value: innerValue }
+    }
+  }
+  return recordMap
+}
+
 export const runtime = 'edge'
 
 export default async function OGImage(
@@ -175,7 +191,8 @@ export async function getNotionPageInfo({
   | { type: 'success'; data: NotionPageInfo }
   | { type: 'error'; error: PageError }
 > {
-  const recordMap = await notion.getPage(pageId)
+  const rawRecordMap = await notion.getPage(pageId)
+  const recordMap = flattenRecordMap(rawRecordMap)
 
   const keys = Object.keys(recordMap?.block || {})
   const block = recordMap?.block?.[keys[0]!]?.value
